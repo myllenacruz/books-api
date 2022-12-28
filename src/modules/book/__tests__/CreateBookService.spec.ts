@@ -2,8 +2,8 @@ import { FakeBookRepository } from "@modules/book/repositories/implementations/F
 import { CreateBookService } from "@modules/book/services/CreateBookService";
 import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
 
-let bookRepository: FakeBookRepository = new FakeBookRepository();
-let createBookService: CreateBookService = new CreateBookService(bookRepository);
+let bookRepository: FakeBookRepository;
+let createBookService: CreateBookService;
 
 describe("Create Books", () => {
 	beforeEach(() => {

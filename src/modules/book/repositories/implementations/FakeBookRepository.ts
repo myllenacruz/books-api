@@ -45,4 +45,12 @@ export class FakeBookRepository implements IBookRepository {
 			totalPages: Math.ceil(total / limit)
 		};
 	}
+
+	public async save(book: Book): Promise<Book> {
+		const index = this.books.findIndex(findBook => findBook.id === book.id);
+
+		this.books[index] = book;
+
+		return book;
+	}
 }

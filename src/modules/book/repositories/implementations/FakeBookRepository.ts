@@ -22,4 +22,8 @@ export class FakeBookRepository implements IBookRepository {
 	public async findBySbn(sbn: string): Promise<Book | undefined> {
 		return this.books.find(book => book.sbn === sbn);
 	}
+
+	public async findByName(name: string): Promise<Book | undefined> {
+		return this.books.find(book => book.name === name);
+	}
 }

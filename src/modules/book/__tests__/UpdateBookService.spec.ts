@@ -34,4 +34,16 @@ describe("Update Books", () => {
 		expect(updatedBook).toHaveProperty("id");
 		expect(updatedBook.name).toEqual("New Book Name");
 	});
+
+	it("should not update an book if id does not exist", async () => {
+		await expect(
+			updateBookRepository.execute({
+				id: 1234,
+				name: "New Book Name",
+				description: "New Book Description Test",
+				author: "Jane Doe",
+				stock_quantity: 5
+			})
+		).rejects.toBeInstanceOf(Error);
+	});
 });

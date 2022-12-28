@@ -1,6 +1,8 @@
 import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
 import { Book } from "@modules/book/entities/Book";
 import { IBookRepository } from "@modules/book/repositories/IBookRepository";
+import { IPaginationOptions } from "@modules/pagination/interfaces/IPaginationOptions";
+import { Pagination } from "@modules/pagination/index";
 
 export class FakeBookRepository implements IBookRepository {
 	public books: Book[] = [];
@@ -29,5 +31,18 @@ export class FakeBookRepository implements IBookRepository {
 
 	public async findById(id: number): Promise<Book | undefined> {
 		return this.books.find(book => book.id === id);
+	}
+
+	public async findAll(
+		paginationOptions: IPaginationOptions
+	): Promise<Pagination<Book>> {
+		const { page, limit } = paginationOptions;
+		const total = this.books.length;
+
+		return {
+			values: this.books.slice((page - 1 ) * limit, page * limit),
+			total,
+			totalPages: Math.ceil(total / limit)
+		};
 	}
 }

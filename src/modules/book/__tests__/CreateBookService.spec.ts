@@ -24,4 +24,20 @@ describe("Create Books", () => {
 
 		expect(book).toHaveProperty("id");
 	});
+
+	it("should not be able to create an book with existing sbn", async () => {
+		const bookData: ICreateBookDTO = {
+			name: "Book Name",
+			description: "Book Description Test",
+			sbn: "978-3-16-148410-0",
+			stock_quantity: 2,
+			author: "John Doe"
+		};
+
+		await createBookService.execute(bookData);
+
+		await expect(
+			createBookService.execute(bookData)
+		).rejects.toEqual(new Error("Sbn already existis!"));
+	});
 });

@@ -23,6 +23,10 @@ export class CreateBookService {
 			author
 		}: IRequest
 	): Promise<Book> {
+		const bookSbn = await this.bookRepository.findBySbn(sbn);
+
+		if (bookSbn) throw new Error("Sbn already existis!");
+
 		const book = await this.bookRepository.create({
 			name,
 			description,

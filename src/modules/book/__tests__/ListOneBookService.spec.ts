@@ -29,4 +29,10 @@ describe("List one Book", () => {
 
 		expect(foundBook.id).toEqual(book.id);
 	});
+
+	it("should not list a book if id does not exist", async () => {
+		await expect(
+			listOneBookService.execute({ id: 12345 })
+		).rejects.toBeInstanceOf(Error);
+	});
 });

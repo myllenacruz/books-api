@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+	  "target": "es2021",
+	  "module": "commonjs",
+	  "outDir": "./dist",
+	  "rootDir": "./src",
+	  "strict": true,
+	  "strictPropertyInitialization": false,
+	  "baseUrl": "./src",
+	  "paths": {
+		"@src/*": ["src/*"],
+		"@modules/*": ["modules/*"],
+		"@shared/*": ["shared/*"]
+	  },
+	  "allowJs": true,
+	  "resolveJsonModule": true,
+	  "esModuleInterop": true,
+	  "experimentalDecorators": true,
+	  "emitDecoratorMetadata": true,
+	  "forceConsistentCasingInFileNames": true,
+	  "isolatedModules": true,
+	  "noImplicitAny": true,
+	  "sourceMap": true,
+	},
+	"exclude": [
+	  "node_modules",
+	  "dist"
+	]
+}

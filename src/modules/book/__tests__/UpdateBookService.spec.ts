@@ -4,7 +4,7 @@ import { Book } from "@modules/book/entities/Book";
 import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
 
 let bookRepository: FakeBookRepository;
-let updateBookRepository: UpdateBookService;
+let updateBookService: UpdateBookService;
 let book: Book;
 
 const bookData: ICreateBookDTO = {
@@ -18,12 +18,12 @@ const bookData: ICreateBookDTO = {
 describe("Update Books", () => {
 	beforeEach(async () => {
 		bookRepository = new FakeBookRepository();
-		updateBookRepository = new UpdateBookService(bookRepository);
+		updateBookService = new UpdateBookService(bookRepository);
 		book = await bookRepository.create(bookData);
 	});
 
 	it("should update an book", async () => {
-		const updatedBook = await updateBookRepository.execute({
+		const updatedBook = await updateBookService.execute({
 			id: book.id,
 			name: "New Book Name",
 			description: "New Book Description Test",
@@ -37,7 +37,7 @@ describe("Update Books", () => {
 
 	it("should not update an book if id does not exist", async () => {
 		await expect(
-			updateBookRepository.execute({
+			updateBookService.execute({
 				id: 1234,
 				name: "New Book Name",
 				description: "New Book Description Test",

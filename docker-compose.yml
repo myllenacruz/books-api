@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  database:
+    image: mysql:5.7
+    volumes:
+      - /var/lib/mysql-backup
+    ports:
+      - 3305:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 'admin'
+      MYSQL_DATABASE: 'books-api'
+
+  api:
+    container_name: 'books-api-service'
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file: .env
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src:/home/app/src
+      - ./package.json:/home/app/package.json
+    command: bash -c "yarn migration && yarn start"
+    depends_on:
+      - database

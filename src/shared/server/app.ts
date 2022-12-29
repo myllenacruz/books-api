@@ -5,6 +5,7 @@ import { Server as HttpServer } from "http";
 import morgan from "morgan";
 import cors from "cors";
 import { AppError } from "@shared/errors/AppError";
+import { errors } from "celebrate";
 
 (async () => {
 	await import("@shared/container");
@@ -29,6 +30,11 @@ app.use(morgan("dev"));
  * JSON Middleware
  */
 app.use(express.json());
+
+/**
+ * Celebrate Errors Middleware
+ */
+app.use(errors());
 
 /**
  * Global Exception Handler Middleware

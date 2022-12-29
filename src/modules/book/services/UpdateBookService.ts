@@ -1,6 +1,7 @@
 import { IBookRepository } from "@modules/book/repositories/IBookRepository";
 import { Book } from "@modules/book/entities/Book";
 import { AppError } from "@shared/errors/AppError";
+import { inject, injectable } from "tsyringe";
 
 interface IRequest {
 	id: number;
@@ -10,8 +11,10 @@ interface IRequest {
 	stock_quantity: number;
 }
 
+@injectable()
 export class UpdateBookService {
 	constructor(
+		@inject("BookRepository")
 		private bookRepository: IBookRepository
 	) {}
 

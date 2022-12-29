@@ -33,4 +33,19 @@ routes.get("/:id",
 	bookController.listOne
 );
 
+routes.put("/:id",
+	celebrate({
+		[Segments.PARAMS]: {
+			id: Joi.string().required()
+		},
+		[Segments.BODY]: {
+			name: Joi.string().min(5).required(),
+			description: Joi.string().min(20).max(255).required(),
+			stock_quantity: Joi.number().min(1).required(),
+			author: Joi.string().required()
+		}
+	}),
+	bookController.update
+);
+
 export default routes;

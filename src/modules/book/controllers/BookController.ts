@@ -3,6 +3,7 @@ import { CreateBookService } from "@modules/book/services/CreateBookService";
 import { container } from "tsyringe";
 import { ListBookService } from "@modules/book/services/ListBookService";
 import { ListOneBookService } from "@modules/book/services/ListOneBookService";
+import { UpdateBookService } from "@modules/book/services/UpdateBookService";
 
 export class BookController {
 	public async create(
@@ -60,6 +61,35 @@ export class BookController {
 			const book = await listBook.execute({ id: +id });
 
 			return response.status(200).json(book);
+		} catch (error) {
+			return response.status(500).json({ error });
+		}
+	}
+
+	public async update(
+		request: Request, response: Response
+	): Promise<Response> {
+		const { id } = request.params;
+
+		const {
+			name,
+			description,
+			author,
+			stock_quantity
+		} = request.body;
+
+		try {
+			const updateBook = container.resolve(UpdateBookService);
+
+			const updatedBook = await updateBook.execute({
+				id: +id,
+				name,
+				description,
+				author,
+				stock_quantity
+			});
+
+			return response.status(201).json(updatedBook);
 		} catch (error) {
 			return response.status(500).json({ error });
 		}

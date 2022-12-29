@@ -54,8 +54,9 @@ export class FakeBookRepository implements IBookRepository {
 		return book;
 	}
 
-	public async delete(book: Book): Promise<void> {
+	public async delete(book: Book): Promise<Book> {
 		const index = this.books.findIndex(findBook => findBook.id === book.id);
 		this.books.splice(index, 1);
+		return book;
 	}
 }

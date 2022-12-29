@@ -6,6 +6,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { AppError } from "@shared/errors/AppError";
 import { errors } from "celebrate";
+import { routes } from "@shared/server/routes";
 
 (async () => {
 	await import("@shared/container");
@@ -30,6 +31,8 @@ app.use(morgan("dev"));
  * JSON Middleware
  */
 app.use(express.json());
+
+app.use("/api", routes);
 
 /**
  * Celebrate Errors Middleware

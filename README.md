@@ -10,6 +10,8 @@ yarn install
 ```
 
 2. Set the needed environment variables in ```.env``` file for database access.
+	- change files with ```.js``` to ```.ts``` and ```dist``` to ```src```.
+	- change TYPEORM_HOST environment variable to ```localhost```.
 
 3. Run database migrations: 
 

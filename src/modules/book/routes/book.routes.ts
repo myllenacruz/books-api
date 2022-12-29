@@ -48,4 +48,13 @@ routes.put("/:id",
 	bookController.update
 );
 
+routes.delete("/:id",
+	celebrate({
+		[Segments.PARAMS]: {
+			id: Joi.string().required()
+		}
+	}),
+	bookController.delete
+);
+
 export default routes;

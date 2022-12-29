@@ -4,6 +4,7 @@ import { container } from "tsyringe";
 import { ListBookService } from "@modules/book/services/ListBookService";
 import { ListOneBookService } from "@modules/book/services/ListOneBookService";
 import { UpdateBookService } from "@modules/book/services/UpdateBookService";
+import { DeleteBookService } from "@modules/book/services/DeleteBookService";
 
 export class BookController {
 	public async create(
@@ -90,6 +91,22 @@ export class BookController {
 			});
 
 			return response.status(201).json(updatedBook);
+		} catch (error) {
+			return response.status(500).json({ error });
+		}
+	}
+
+	public async delete(
+		request: Request, response: Response
+	): Promise<Response> {
+		const { id } = request.params;
+
+		try {
+			const deleteBook = container.resolve(DeleteBookService);
+
+			await deleteBook.execute({ id: +id });
+
+			return response.status(204).send();
 		} catch (error) {
 			return response.status(500).json({ error });
 		}

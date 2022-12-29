@@ -1,13 +1,16 @@
 import { IBookRepository } from "@modules/book/repositories/IBookRepository";
 import { Book } from "@modules/book/entities/Book";
 import { AppError } from "@shared/errors/AppError";
+import { inject, injectable } from "tsyringe";
 
 interface IRequest {
 	id: number;
 }
 
+@injectable()
 export class ListOneBookService {
 	constructor(
+		@inject("BookRepository")
 		private bookRepository: IBookRepository
 	) {}
 

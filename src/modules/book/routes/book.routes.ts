@@ -24,4 +24,13 @@ routes.get("/",
 	bookController.list
 );
 
+routes.get("/:id",
+	celebrate({
+		[Segments.PARAMS]: {
+			id: Joi.string().required()
+		}
+	}),
+	bookController.listOne
+);
+
 export default routes;

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CreateBookService } from "@modules/book/services/CreateBookService";
 import { container } from "tsyringe";
 import { ListBookService } from "@modules/book/services/ListBookService";
+import { ListOneBookService } from "@modules/book/services/ListOneBookService";
 
 export class BookController {
 	public async create(
@@ -43,6 +44,22 @@ export class BookController {
 			);
 
 			return response.status(200).json(books);
+		} catch (error) {
+			return response.status(500).json({ error });
+		}
+	}
+
+	public async listOne(
+		request: Request, response: Response
+	): Promise<Response> {
+		const { id } = request.params;
+
+		try {
+			const listBook = container.resolve(ListOneBookService);
+
+			const book = await listBook.execute({ id: +id });
+
+			return response.status(200).json(book);
 		} catch (error) {
 			return response.status(500).json({ error });
 		}

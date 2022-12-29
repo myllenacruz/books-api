@@ -7,6 +7,9 @@ import cors from "cors";
 import { AppError } from "@shared/errors/AppError";
 import { errors } from "celebrate";
 import { routes } from "@shared/server/routes";
+import basicAtuh from "express-basic-auth";
+import swaggerUi from "swagger-ui-express";
+import swaggerDoc from "swagger.json";
 
 (async () => {
 	await import("@shared/container");
@@ -33,6 +36,20 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use("/api", routes);
+
+/**
+ * Documentação
+ */
+app.use("/api-docs", basicAtuh({
+	challenge: true,
+	users: {
+		dev: "dev"
+	}
+}), swaggerUi.serve,
+swaggerUi.setup(swaggerDoc),
+express.static("src/swagger.json")
+);
+
 
 /**
  * Celebrate Errors Middleware

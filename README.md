@@ -23,3 +23,7 @@ yarn migration
 ```
 yarn dev
 ```
+
+## Docker way
+1. Run docker compose: 
+```docker-compose up```; This command will run migrations and start the server.

@@ -5,6 +5,11 @@ import { Server as HttpServer } from "http";
 import morgan from "morgan";
 import cors from "cors";
 
+(async () => {
+	await import("@shared/container");
+	await import("@shared/database");
+})();
+
 const app = express();
 const server = new HttpServer(app);
 

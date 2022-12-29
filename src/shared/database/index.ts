@@ -10,3 +10,5 @@ const connect = async (): Promise<void> => {
 };
 
 connect();
+
+export = connect();

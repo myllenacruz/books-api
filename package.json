@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --ignore-watch node_modules --rs src/shared/server/index.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --rs src/shared/server/index.ts",
     "test": "jest",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration": "yarn typeorm migration:run"
@@ -31,6 +31,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.7.0",
     "typeorm": "0.2.41"
   }
 }

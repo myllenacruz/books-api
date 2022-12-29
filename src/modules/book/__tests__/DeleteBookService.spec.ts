@@ -27,4 +27,10 @@ describe("Delete Books", () => {
 			deleteBookService.execute({ id: book.id })
 		).resolves.toBeUndefined();
 	});
+
+	it("should not delete a book if id does not exist", async () => {
+		await expect(
+			deleteBookService.execute({ id: 12345 })
+		).rejects.toBeInstanceOf(Error);
+	});
 });

@@ -2,6 +2,7 @@ import { FakeBookRepository } from "@modules/book/repositories/implementations/F
 import { UpdateBookService } from "@modules/book/services/UpdateBookService";
 import { Book } from "@modules/book/entities/Book";
 import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
+import { AppError } from "@shared/errors/AppError";
 
 let bookRepository: FakeBookRepository;
 let updateBookService: UpdateBookService;
@@ -44,6 +45,6 @@ describe("Update Books", () => {
 				author: "Jane Doe",
 				stock_quantity: 5
 			})
-		).rejects.toBeInstanceOf(Error);
+		).rejects.toBeInstanceOf(AppError);
 	});
 });

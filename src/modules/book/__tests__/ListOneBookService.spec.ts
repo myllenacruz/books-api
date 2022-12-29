@@ -2,6 +2,7 @@ import { FakeBookRepository } from "@modules/book/repositories/implementations/F
 import { ListOneBookService } from "@modules/book/services/ListOneBookService";
 import { Book } from "@modules/book/entities/Book";
 import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
+import { AppError } from "@shared/errors/AppError";
 
 let bookRepository: FakeBookRepository;
 let listOneBookService: ListOneBookService;
@@ -33,6 +34,6 @@ describe("List one Book", () => {
 	it("should not list a book if id does not exist", async () => {
 		await expect(
 			listOneBookService.execute({ id: 12345 })
-		).rejects.toBeInstanceOf(Error);
+		).rejects.toBeInstanceOf(AppError);
 	});
 });

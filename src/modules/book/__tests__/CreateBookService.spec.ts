@@ -1,6 +1,7 @@
 import { FakeBookRepository } from "@modules/book/repositories/implementations/FakeBookRepository";
 import { CreateBookService } from "@modules/book/services/CreateBookService";
 import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
+import { AppError } from "@shared/errors/AppError";
 
 let bookRepository: FakeBookRepository;
 let createBookService: CreateBookService;
@@ -38,7 +39,7 @@ describe("Create Books", () => {
 
 		await expect(
 			createBookService.execute(bookData)
-		).rejects.toBeInstanceOf(Error);
+		).rejects.toBeInstanceOf(AppError);
 	});
 
 	it("should not be able to create an book with existing name", async () => {
@@ -54,6 +55,6 @@ describe("Create Books", () => {
 
 		await expect(
 			createBookService.execute(bookData)
-		).rejects.toBeInstanceOf(Error);
+		).rejects.toBeInstanceOf(AppError);
 	});
 });

@@ -1,5 +1,6 @@
 import { IBookRepository } from "@modules/book/repositories/IBookRepository";
 import { Book } from "@modules/book/entities/Book";
+import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
 	sbn: string;
@@ -26,9 +27,9 @@ export class CreateBookService {
 		const bookSbn = await this.bookRepository.findBySbn(sbn);
 		const bookName = await this.bookRepository.findByName(name);
 
-		if (bookSbn) throw new Error("Sbn already existis!");
+		if (bookSbn) throw new AppError("Sbn already existis!", 409);
 
-		if (bookName) throw new Error("Book name already existis!");
+		if (bookName) throw new AppError("Book name already existis!", 409);
 
 		const book = await this.bookRepository.create({
 			name,

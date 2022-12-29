@@ -2,6 +2,7 @@ import { FakeBookRepository } from "@modules/book/repositories/implementations/F
 import { DeleteBookService } from "@modules/book/services/DeleteBookService";
 import { Book } from "@modules/book/entities/Book";
 import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
+import { AppError } from "@shared/errors/AppError";
 
 let bookRepository: FakeBookRepository;
 let deleteBookService: DeleteBookService;
@@ -31,6 +32,6 @@ describe("Delete Books", () => {
 	it("should not delete a book if id does not exist", async () => {
 		await expect(
 			deleteBookService.execute({ id: 12345 })
-		).rejects.toBeInstanceOf(Error);
+		).rejects.toBeInstanceOf(AppError);
 	});
 });

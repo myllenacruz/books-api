@@ -1,26 +1,23 @@
-import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
+import { Column, Entity } from "typeorm";
+import { PrimaryGeneratedColumn } from "typeorm/decorator/columns/PrimaryGeneratedColumn";
 
+@Entity("book")
 export class Book {
-	public readonly id: number;
-	public sbn: string;
-	public name: string;
-	public description: string;
-	public author: string;
-	public stock_quantity: number;
+    @PrimaryGeneratedColumn()
+	    id: number;
 
-	constructor({
-		sbn,
-		name,
-		description,
-		author,
-		stock_quantity
-	}: ICreateBookDTO) {
-		return Object.assign(this, {
-			sbn,
-			name,
-			description,
-			author,
-			stock_quantity
-		});
-	}
+	@Column()
+		sbn: string;
+
+	@Column()
+		name: string;
+
+	@Column()
+		description: string;
+
+	@Column()
+		author: string;
+
+	@Column()
+		stock_quantity: number;
 }

@@ -8,7 +8,7 @@ export class FakeBookRepository implements IBookRepository {
 	public books: Book[] = [];
 
 	public async create(data: ICreateBookDTO): Promise<Book> {
-		const book: Book = new Book(data);
+		const book: Book = new Book();
 		const bookId: number = Math.floor(Math.random() * 10);
 
 		Object.assign(book, {

@@ -10,4 +10,5 @@ export interface IBookRepository {
 	findById(id: number): Promise<Book | undefined>;
 	findAll(paginationOptions?: IPaginationOptions): Promise<Pagination<Book>>;
 	save(book: Book): Promise<Book>;
+	delete(book: Book): Promise<void>;
 }

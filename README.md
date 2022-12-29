@@ -27,3 +27,15 @@ yarn dev
 ## Docker way
 1. Run docker compose: 
 ```docker-compose up```; This command will run migrations and start the server.
+
+## API Documentation
+
+If your server is already up, you ready for access the documentation: http://localhost:3000/api-docs.
+
+<strong>Authentication is required to access</strong>
+
+Credentials:
+- user: 
+	dev
+- password: 
+	dev

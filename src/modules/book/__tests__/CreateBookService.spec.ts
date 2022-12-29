@@ -57,4 +57,18 @@ describe("Create Books", () => {
 			createBookService.execute(bookData)
 		).rejects.toBeInstanceOf(AppError);
 	});
+
+	it("should not be able to create an book with stock quantity lass or equal 0", async () => {
+		const bookData: ICreateBookDTO = {
+			name: "Book Name",
+			description: "Book Description Test",
+			sbn: "978-3-16-148410-0",
+			stock_quantity: 0,
+			author: "John Doe"
+		};
+
+		await expect(
+			createBookService.execute(bookData)
+		).rejects.toBeInstanceOf(AppError);
+	});
 });

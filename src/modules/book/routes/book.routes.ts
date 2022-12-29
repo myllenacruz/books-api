@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { BookController } from "@modules/book/controllers/BookController";
 import { Joi, Segments, celebrate } from "celebrate";
+import { pagination } from "@modules/pagination/middlewares/pagination";
 
 const routes = Router();
 const bookController = new BookController();
@@ -16,6 +17,11 @@ routes.post("/",
 		}
 	}),
 	bookController.create
+);
+
+routes.get("/",
+	pagination,
+	bookController.list
 );
 
 export default routes;

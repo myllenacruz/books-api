@@ -1,0 +1,270 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Books API Service",
+		"description": "This is the documentation of the Books API Service routes."
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/api/"
+		}
+	],
+	"paths": {
+		"/book": {
+			"post": {
+				"summary": "Book registration",
+				"description": "This route is responsible for registering an book.",
+				"tags": ["Book"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Book"
+							},
+							"examples": {
+								"book": {
+									"value": {
+										"name": "Book Name Test",
+										"description": "An description test",
+										"sbn": "913-4-56-148410-0",
+										"stock_quantity": 100,
+										"author": "John Doe"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Book is registered with success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/Book"
+								},
+								"examples": {
+									"book": {
+										"value": {
+											"sbn": "913-4-56-148410-0",
+											"name": "Book Name Test",
+											"description": "An description test",
+											"author": "John Doe",
+											"stock_quantity": 100,
+											"id": 2
+										}
+									}
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Sbn or the name of book already existis"
+					},
+					"400": {
+						"description": "Stock quantity informate has equal or less than 0"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			},
+			"get": {
+				"summary": "Books list",
+				"description": "This route is responsible for listing all books, however, only the name of each of them.\n\n The values will be come with pagination. If __page__ value is not provided the value will be  __1__ and if limit is not provided the value will be __50__.",
+				"tags": ["Book"],
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Paging value to be informed",
+						"required": false
+					},
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "Data limit to be informed",
+						"required": false
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The books is listed with success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/Book"
+								},
+								"examples": {
+									"book": {
+										"value": {
+											"values": [
+												{
+													"name": "A Book Name"
+												},
+												{
+													"name": "Book Name Test"
+												}
+											],
+											"total": 2,
+											"totalPages": 1
+										}
+									}
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			}
+		},
+		"/book/{id}": {
+			"get": {
+				"description": "This route is responsible for list a specific book",
+				"summary": "List one book",
+				"tags": ["Book"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Book ID",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "The book is list with success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/Book"
+								},
+								"examples": {
+									"book": {
+										"value": {
+											"id": 1,
+											"sbn": "978-1-12-148410-0",
+											"name": "A Book Name",
+											"description": "Book Description Test",
+											"author": "John Doe",
+											"stock_quantity": 100
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Book not found"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			},
+			"put": {
+				"description": "This route is responsible for update a book",
+				"summary": "Update a book",
+				"tags": ["Book"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Book ID",
+						"required": true
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Book"
+							},
+							"examples": {
+								"book": {
+									"value": {
+										"name": "Book Name Test",
+										"description": "An description test",
+										"stock_quantity": 200,
+										"author": "John Doe"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "The book is updated with success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#/components/schemas/Book"
+								},
+								"examples": {
+									"book": {
+										"value": {
+											"id": 1,
+											"sbn": "978-1-12-148410-0",
+											"name": "A Book Name",
+											"description": "Book Description Test",
+											"author": "John Doe",
+											"stock_quantity": 200
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Book not found"
+					},
+					"409": {
+						"description": "Book name already exists"
+					},
+					"500": {
+						"description": "Internal Server Error"
+					}
+				}
+			},
+			"delete": {
+				"description": "This route is responsible for delete a book",
+				"summary": "Delete a book",
+				"tags": ["Book"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"description": "Book ID",
+						"required": true
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "The book is deleted with success"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Book": {
+				"type": "object",
+				"properties": {
+					"name": { "type": "string" },
+					"sbn": { "type": "string" },
+					"description": { "type": "string" },
+					"stock_quantity": { "type": "number" },
+					"author": { "type": "string" }
+				}
+			}
+		}
+	}
+}

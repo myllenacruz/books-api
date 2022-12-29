@@ -6,12 +6,16 @@ services:
     volumes:
       - /var/lib/mysql-backup
     ports:
-      - 3305:3306
+      - 3306:3306
     expose:
       - 3306
     environment:
       MYSQL_ROOT_PASSWORD: 'admin'
       MYSQL_DATABASE: 'books-api'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
 
   api:
     container_name: 'books-api-service'
@@ -26,4 +30,5 @@ services:
       - ./package.json:/home/app/package.json
     command: bash -c "yarn migration && yarn start"
     depends_on:
-      - database
+      database:
+        condition: "service_healthy"

@@ -47,4 +47,16 @@ describe("Update Books", () => {
 			})
 		).rejects.toBeInstanceOf(AppError);
 	});
+
+	it("should not update an book with existing name", async () => {
+		await expect(
+			updateBookService.execute({
+				id: 1234,
+				name: book.name,
+				description: book.description,
+				stock_quantity: 2,
+				author: "John Doe"
+			})
+		).rejects.toBeInstanceOf(AppError);
+	});
 });

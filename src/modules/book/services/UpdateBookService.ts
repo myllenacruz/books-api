@@ -24,9 +24,13 @@ export class UpdateBookService {
 			stock_quantity
 		}: IRequest
 	): Promise<Book> {
-		const book = await this.bookRepository.findById(+id);
+		const book = await this.bookRepository.findById(id);
+		const bookName = await this.bookRepository.findByName(name);
 
 		if (!book) throw new AppError("Book not found", 404);
+
+		if (bookName && bookName.id !== id)
+			throw new AppError("Book name already existis!", 409);
 
 		book.name = name;
 		book.description = description;

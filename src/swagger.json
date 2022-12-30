@@ -251,6 +251,9 @@
 				"responses": {
 					"204": {
 						"description": "The book is deleted with success"
+					},
+					"404": {
+						"description": "Book not found"
 					}
 				}
 			}

@@ -39,8 +39,6 @@ export class CreateBookService {
 
 		if (bookName) throw new AppError("Book name already existis!", 409);
 
-		if (stock_quantity <= 0) throw new AppError("Stock quantity has to be more than 0", 400);
-
 		if (!author) throw new AppError("Author not found", 404);
 
 		const book = await this.bookRepository.create({

@@ -1,5 +1,6 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm/decorator/columns/PrimaryGeneratedColumn";
+import { Author } from "@modules/book/entities/Author";
 
 @Entity("book")
 export class Book {
@@ -16,8 +17,12 @@ export class Book {
 		description: string;
 
 	@Column()
-		author: string;
+		author_id: number;
 
 	@Column()
 		stock_quantity: number;
+
+	@ManyToOne(() => Author, author => author.books)
+	@JoinColumn({ name: "author_id" })
+		author: Author;
 }

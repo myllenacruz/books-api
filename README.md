@@ -38,7 +38,7 @@ yarn dev
 
 ## API Documentation
 
-If your server is already up, you ready for access the documentation: http://localhost:3000/api-docs.
+If your server is already up, you ready for access the routes documentation and free for testing them: http://localhost:3000/api-docs.
 
 <strong>Authentication is required to access</strong>
 

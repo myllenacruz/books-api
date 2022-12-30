@@ -15,7 +15,7 @@ export class BookController {
 			name,
 			description,
 			stock_quantity,
-			author
+			author_id
 		} = request.body;
 
 		try {
@@ -26,7 +26,7 @@ export class BookController {
 				name,
 				description,
 				stock_quantity,
-				author
+				author_id: +author_id
 			});
 
 			return response.status(201).json(book);
@@ -75,7 +75,7 @@ export class BookController {
 		const {
 			name,
 			description,
-			author,
+			author_id,
 			stock_quantity
 		} = request.body;
 
@@ -86,7 +86,7 @@ export class BookController {
 				id: +id,
 				name,
 				description,
-				author,
+				author_id: +author_id,
 				stock_quantity
 			});
 

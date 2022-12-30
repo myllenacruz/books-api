@@ -2,14 +2,25 @@ import { FakeBookRepository } from "@modules/book/repositories/implementations/F
 import { CreateBookService } from "@modules/book/services/CreateBookService";
 import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
 import { AppError } from "@shared/errors/AppError";
+import { FakeAuthorRepository } from "@modules/book/repositories/implementations/FakeAuthorRepository";
+import { Author } from "@modules/book/entities/Author";
 
 let bookRepository: FakeBookRepository;
+let authorRepository: FakeAuthorRepository;
 let createBookService: CreateBookService;
+let author: Author;
 
 describe("Create Books", () => {
-	beforeEach(() => {
+	beforeEach(async () => {
 		bookRepository = new FakeBookRepository();
-		createBookService = new CreateBookService(bookRepository);
+		authorRepository = new FakeAuthorRepository();
+
+		createBookService = new CreateBookService(
+			bookRepository,
+			authorRepository
+		);
+
+		author = await authorRepository.create({ name: "John Doe" });
 	});
 
 	it("should create a new book", async () => {
@@ -18,7 +29,7 @@ describe("Create Books", () => {
 			description: "Book Description Test",
 			sbn: "978-3-16-148410-0",
 			stock_quantity: 2,
-			author: "John Doe"
+			author_id: author.id
 		};
 
 		const book = await createBookService.execute(bookData);
@@ -32,7 +43,7 @@ describe("Create Books", () => {
 			description: "Book Description Test",
 			sbn: "978-3-16-148410-0",
 			stock_quantity: 2,
-			author: "John Doe"
+			author_id: author.id
 		};
 
 		await createBookService.execute(bookData);
@@ -48,7 +59,7 @@ describe("Create Books", () => {
 			description: "Book Description Test",
 			sbn: "978-3-16-148410-0",
 			stock_quantity: 2,
-			author: "John Doe"
+			author_id: author.id
 		};
 
 		await createBookService.execute(bookData);
@@ -64,7 +75,21 @@ describe("Create Books", () => {
 			description: "Book Description Test",
 			sbn: "978-3-16-148410-0",
 			stock_quantity: 0,
-			author: "John Doe"
+			author_id: author.id
+		};
+
+		await expect(
+			createBookService.execute(bookData)
+		).rejects.toBeInstanceOf(AppError);
+	});
+
+	it("should not be able to create an book if author id do not exist", async () => {
+		const bookData: ICreateBookDTO = {
+			name: "Book Name",
+			description: "Book Description Test",
+			sbn: "978-3-16-148410-0",
+			stock_quantity: 1,
+			author_id: 1234
 		};
 
 		await expect(

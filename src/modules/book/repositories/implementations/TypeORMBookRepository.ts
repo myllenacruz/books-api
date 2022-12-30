@@ -41,11 +41,12 @@ export class TypeORMBookRepository implements IBookRepository {
 	}
 
 	public async findById(id: number): Promise<Book | undefined> {
-		const book = this.ormRepository.findOne({
-			where: {
-				id
-			}
-		});
+		const book = this.ormRepository
+			.createQueryBuilder("book")
+			.where(`book.id = ${id}`, { id })
+			.leftJoin("book.author", "author")
+			.addSelect("author.name")
+			.getOne();
 
 		return book;
 	}

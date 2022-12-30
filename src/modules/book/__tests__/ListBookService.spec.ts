@@ -12,7 +12,7 @@ const bookData: ICreateBookDTO = {
 	description: "Book Description Test",
 	sbn: "978-3-16-148410-0",
 	stock_quantity: 2,
-	author: "John Doe"
+	author_id: 1
 };
 
 describe("List Books", () => {

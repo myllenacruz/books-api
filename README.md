@@ -2,6 +2,14 @@
 
 This system is part of a technical challenge, which consists of building a simple book API service.
 
+### Main technologies and frameworks used
+
+- NodeJS
+- Express
+- Jest
+- MySQL
+- TypeORM 
+
 ## Development
 1. Install project dependencies: 
 

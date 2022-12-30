@@ -1,6 +1,6 @@
 <h1 align="center">Books API</h1>
 
-This system is part of a technical challenge, which consists of building a simple book API service.
+This system is part of a technical challenge, which consists of building a book API service with Unit Test.
 
 ### Main technologies and frameworks used
 

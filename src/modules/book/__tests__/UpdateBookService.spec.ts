@@ -3,23 +3,38 @@ import { UpdateBookService } from "@modules/book/services/UpdateBookService";
 import { Book } from "@modules/book/entities/Book";
 import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
 import { AppError } from "@shared/errors/AppError";
+import { FakeAuthorRepository } from "@modules/book/repositories/implementations/FakeAuthorRepository";
+import { Author } from "@modules/book/entities/Author";
 
 let bookRepository: FakeBookRepository;
+let authorRepository: FakeAuthorRepository;
 let updateBookService: UpdateBookService;
 let book: Book;
+let author: Author;
 
 const bookData: ICreateBookDTO = {
 	name: "Book Name",
 	description: "Book Description Test",
-	sbn: "978-3-16-148410-0",
+	sbn: "978-3-16-148411-0",
 	stock_quantity: 2,
-	author: "John Doe"
+	author_id: 1
+};
+
+const authorData = {
+	name: "John Doe"
 };
 
 describe("Update Books", () => {
 	beforeEach(async () => {
 		bookRepository = new FakeBookRepository();
-		updateBookService = new UpdateBookService(bookRepository);
+		authorRepository = new FakeAuthorRepository();
+
+		updateBookService = new UpdateBookService(
+			bookRepository,
+			authorRepository
+		);
+
+		author = await authorRepository.create(authorData);
 		book = await bookRepository.create(bookData);
 	});
 
@@ -28,7 +43,7 @@ describe("Update Books", () => {
 			id: book.id,
 			name: "New Book Name",
 			description: "New Book Description Test",
-			author: "Jane Doe",
+			author_id: author.id,
 			stock_quantity: 5
 		});
 
@@ -42,7 +57,7 @@ describe("Update Books", () => {
 				id: 1234,
 				name: "New Book Name",
 				description: "New Book Description Test",
-				author: "Jane Doe",
+				author_id: author.id,
 				stock_quantity: 5
 			})
 		).rejects.toBeInstanceOf(AppError);
@@ -55,7 +70,19 @@ describe("Update Books", () => {
 				name: book.name,
 				description: book.description,
 				stock_quantity: 2,
-				author: "John Doe"
+				author_id: author.id
+			})
+		).rejects.toBeInstanceOf(AppError);
+	});
+
+	it("should not update an book if author id does not exist", async () => {
+		await expect(
+			updateBookService.execute({
+				id: book.id,
+				name: "New Book Name",
+				description: "New Book Description Test",
+				author_id: 1234,
+				stock_quantity: 5
 			})
 		).rejects.toBeInstanceOf(AppError);
 	});

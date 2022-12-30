@@ -25,10 +25,10 @@
 								"book": {
 									"value": {
 										"name": "Book Name Test",
-										"description": "An description test",
+										"description": "An description for test",
 										"sbn": "913-4-56-148410-0",
 										"stock_quantity": 100,
-										"author": "John Doe"
+										"author_id": 1
 									}
 								}
 							}
@@ -49,8 +49,8 @@
 										"value": {
 											"sbn": "913-4-56-148410-0",
 											"name": "Book Name Test",
-											"description": "An description test",
-											"author": "John Doe",
+											"description": "An description for test",
+											"author_id": 1,
 											"stock_quantity": 100,
 											"id": 2
 										}
@@ -151,8 +151,11 @@
 											"sbn": "978-1-12-148410-0",
 											"name": "A Book Name",
 											"description": "Book Description Test",
-											"author": "John Doe",
-											"stock_quantity": 100
+											"author_id": 1,
+											"stock_quantity": 100,
+											"author": {
+												"name": "John Doe"
+											}
 										}
 									}
 								}
@@ -160,7 +163,7 @@
 						}
 					},
 					"404": {
-						"description": "Book not found"
+						"description": "Book or author not found"
 					},
 					"500": {
 						"description": "Internal Server Error"
@@ -191,7 +194,7 @@
 										"name": "Book Name Test",
 										"description": "An description test",
 										"stock_quantity": 200,
-										"author": "John Doe"
+										"author_id": 1
 									}
 								}
 							}
@@ -214,7 +217,7 @@
 											"sbn": "978-1-12-148410-0",
 											"name": "A Book Name",
 											"description": "Book Description Test",
-											"author": "John Doe",
+											"author_id": 1,
 											"stock_quantity": 200
 										}
 									}
@@ -223,7 +226,7 @@
 						}
 					},
 					"404": {
-						"description": "Book not found"
+						"description": "Book or author not found"
 					},
 					"409": {
 						"description": "Book name already exists"
@@ -262,7 +265,7 @@
 					"sbn": { "type": "string" },
 					"description": { "type": "string" },
 					"stock_quantity": { "type": "number" },
-					"author": { "type": "string" }
+					"author_id": { "type": "number" }
 				}
 			}
 		}

@@ -1,28 +1,17 @@
 import { FakeBookRepository } from "@modules/book/repositories/implementations/FakeBookRepository";
 import { UpdateBookService } from "@modules/book/services/UpdateBookService";
 import { Book } from "@modules/book/entities/Book";
-import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
 import { AppError } from "@shared/errors/AppError";
 import { FakeAuthorRepository } from "@modules/book/repositories/implementations/FakeAuthorRepository";
 import { Author } from "@modules/book/entities/Author";
+import { bookData } from "@modules/book/mocks/book";
+import { authorData } from "@modules/book/mocks/author";
 
 let bookRepository: FakeBookRepository;
 let authorRepository: FakeAuthorRepository;
 let updateBookService: UpdateBookService;
 let book: Book;
 let author: Author;
-
-const bookData: ICreateBookDTO = {
-	name: "Book Name",
-	description: "Book Description Test",
-	sbn: "978-3-16-148411-0",
-	stock_quantity: 2,
-	author_id: 1
-};
-
-const authorData = {
-	name: "John Doe"
-};
 
 describe("Update Books", () => {
 	beforeEach(async () => {

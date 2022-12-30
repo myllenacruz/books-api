@@ -1,19 +1,11 @@
 import { FakeBookRepository } from "@modules/book/repositories/implementations/FakeBookRepository";
 import { ListBookService } from "@modules/book/services/ListBookService";
 import { Book } from "@modules/book/entities/Book";
-import { ICreateBookDTO } from "@modules/book/dtos/ICreateBookDTO";
+import { bookData } from "@modules/book/mocks/book";
 
 let bookRepository: FakeBookRepository;
 let listBookService: ListBookService;
 let book: Book;
-
-const bookData: ICreateBookDTO = {
-	name: "Book Name",
-	description: "Book Description Test",
-	sbn: "978-3-16-148410-0",
-	stock_quantity: 2,
-	author_id: 1
-};
 
 describe("List Books", () => {
 	beforeEach(async () => {

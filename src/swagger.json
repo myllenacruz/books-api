@@ -163,7 +163,7 @@
 						}
 					},
 					"404": {
-						"description": "Book or author not found"
+						"description": "Book not found"
 					},
 					"500": {
 						"description": "Internal Server Error"

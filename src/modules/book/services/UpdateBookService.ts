@@ -18,6 +18,7 @@ export class UpdateBookService {
 		@inject("BookRepository")
 		private bookRepository: IBookRepository,
 
+		@inject("AuthorRepository")
 		private authorRepository: IAuthorRepository
 	) {}
 
